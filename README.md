@@ -24,4 +24,5 @@ export class AppModule {}
 // env variables
 AUTHORIZER_URL = 'https://authorizer.leocode.io';
 AUTHORIZER_API_KEY = 'your_api_key';
+X_API_KEY = 'your_api_key';
 ```
