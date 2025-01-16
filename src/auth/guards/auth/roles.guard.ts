@@ -21,36 +21,23 @@ export class RolesGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     try {
-      // const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
-      //   context.getHandler(),
-      //   context.getClass(),
-      // ]);
-      // if (!requiredRoles) {
-      //   return true;
-      // }
+      const request = context.switchToHttp().getRequest();
+      const roles = request.body.user_meta_data.roles;
+      const requiredRoles = this.reflector.getAllAndOverride<Role[]>(
+        ROLES_KEY,
+        [context.getHandler(), context.getClass()],
+      );
+      console.log(requiredRoles);
+      if (!requiredRoles) {
+        return true;
+      }
 
-      // const role_access_token = request.headers['access_token'];
+      const isRoleAccepted = requiredRoles.some((role) =>
+        roles?.includes(role),
+      );
 
-      // if (!role_access_token) {
-      // throw this.responseService.buildErrorResponse(
-      //   'Authorization header missing',
-      //   '',
-      //   HttpStatus.UNAUTHORIZED,
-      //   'INVALID_TOKEN',
-      // );
-      // }
-      //   const decoded = this.jwtService.verify(role_access_token, {
-      //     secret: this.configService.get<string>('JWT_SECRET'),
-      //   });
-
-      // console.log(decoded);
-      // console.log(requiredRoles);
-      // const isRoleAccepted = requiredRoles.some((role) =>
-      //   decoded.roles?.includes(role),
-      // );
-
-      // console.log(isRoleAccepted);
-      return true;
+      console.log(isRoleAccepted);
+      return isRoleAccepted;
     } catch (error) {
       return false;
     }
