@@ -1,8 +1,8 @@
 import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import axios, { AxiosError, AxiosInstance } from 'axios';
-import { JwtService } from '@nestjs/jwt';
+// import { ConfigService } from '@nestjs/config';
+// import { JwtService } from '@nestjs/jwt';
 import { AuthorizerConfig } from '../config/authorizer.config';
+import axios from 'axios';
 // import { IUserContext } from '../interfaces/user-context.interface';
 // export interface IUserContext {
 //     userId: string;
@@ -13,30 +13,30 @@ import { AuthorizerConfig } from '../config/authorizer.config';
 //   }
 
 // Define interfaces for better type safety
-interface TokenValidationResponse {
-  payload: {
-    context_token: string;
-    // Add other expected response fields
-  };
-}
+// interface TokenValidationResponse {
+//   payload: {
+//     context_token: string;
+//     // Add other expected response fields
+//   };
+// }
 
-interface CustomerApiResponse {
-  status: number;
-  data: {
-    data: string; // This is our JWT token
-    metadata: {
-      timestamp: string;
-      path: string;
-    };
-  };
-}
+// interface CustomerApiResponse {
+//   status: number;
+//   data: {
+//     data: string; // This is our JWT token
+//     metadata: {
+//       timestamp: string;
+//       path: string;
+//     };
+//   };
+// }
 
-interface DecodedToken {
-  generator: string;
-  expires_in: string;
-  expires_at: string;
-  // Add other possible token fields
-}
+// interface DecodedToken {
+//   generator: string;
+//   expires_in: string;
+//   expires_at: string;
+//   // Add other possible token fields
+// }
 
 @Injectable()
 export class TokenValidationService {
@@ -94,7 +94,7 @@ export class TokenValidationService {
    * @returns Promise<IUserContext> // todo: change to IUserContext
    * @throws HttpException
    */
-  async validateToken(token: string): Promise<any> {
+  async validateToken(token: string): Promise<boolean> {
     const authorizerConfig = this.authorizerConfig.getAuthorizerConfig();
     const authorizerUrl = authorizerConfig.url;
     this.logger.debug(
@@ -123,17 +123,20 @@ export class TokenValidationService {
       // [TODO] - check for token type
       // [TODO] - check for token refresh
 
-      const isTokenValidResponse = await fetch(`${authorizerUrl}/access_token`, {
-        method: 'POST',
-        headers: {
-          'x-api-key': xapiKey,
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+      const isTokenValidResponse = await fetch(
+        `${authorizerUrl}/access_token`,
+        {
+          method: 'POST',
+          headers: {
+            'x-api-key': xapiKey,
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       const isTokenValid = await isTokenValidResponse.json();
       this.logger.debug('isTokenValidResponse', isTokenValid);
-      
+
       if (!isTokenValid) {
         this.logger.error('Token is invalid');
         return false;

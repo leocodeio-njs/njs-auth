@@ -1,23 +1,11 @@
-import {
-  Injectable,
-  CanActivate,
-  ExecutionContext,
-  HttpStatus,
-} from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { JwtService } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-import { Role } from '../../enums/role.enum';
+import { Role } from '../../enums/auth/role.enum';
 import { ROLES_KEY } from '../../decorator/auth/roles.decorator';
-import axios from 'axios';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(
-    private reflector: Reflector,
-    private jwtService: JwtService,
-    private configService: ConfigService,
-  ) {}
+  constructor(private reflector: Reflector) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     try {

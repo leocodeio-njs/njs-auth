@@ -2,7 +2,6 @@ import {
   Injectable,
   CanActivate,
   ExecutionContext,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
@@ -32,11 +31,15 @@ export class ApiKeyGuard implements CanActivate {
     const validApiKey = this.configService.get<string>('API_KEY');
 
     if (!apiKey) {
-      throw new UnauthorizedException('API key is required');
+      // throw new UnauthorizedException('API key is required');
+      console.log('API key is required');
+      return false;
     }
 
     if (apiKey !== validApiKey) {
-      throw new UnauthorizedException('Invalid API key');
+      // throw new UnauthorizedException('Invalid API key');
+      console.log('Invalid API key');
+      return false;
     }
 
     return true;

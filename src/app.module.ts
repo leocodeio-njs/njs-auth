@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { APP_GUARD } from '@nestjs/core';
-import { ApiKeyGuard } from './auth/guards/api/api-key.guard';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './modules/auth.module';
 
 @Module({
-  imports: [ConfigModule],
+  imports: [ConfigModule, AuthModule],
   controllers: [AppController],
-  providers: [AppService, { provide: APP_GUARD, useClass: ApiKeyGuard }],
+  providers: [AppService],
 })
 export class AppModule {}
