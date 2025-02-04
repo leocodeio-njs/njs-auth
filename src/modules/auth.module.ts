@@ -6,7 +6,8 @@ import { Reflector } from '@nestjs/core';
 // Guards
 import { ApiKeyGuard } from '../auth/guards/api/api-key.guard';
 import { RolesGuard } from '../auth/guards/auth/roles.guard';
-import { ExternalJwtGuard } from '../auth/guards/jwt/external-jwt.guard';
+import { AccessTokenAuthGuard } from '../auth/guards/jwt/acess-token-auth.guard';
+import { IpRateLimitGuard } from '../auth/guards/rate-limit/rate-limit.guard';
 
 //decorators
 import { PassAccessTokenCheck } from '../auth/decorator/jwt/passAccessTokenCheck';
@@ -14,7 +15,7 @@ import { Roles } from '../auth/decorator/auth/roles.decorator';
 import { Public } from '../auth/decorator/api/public.decorator';
 
 // services
-import { TokenValidationService } from '../auth/services/token-validation.service';
+import { AccessTokenValidationService } from '../auth/services/access-token-validation.service';
 
 @Module({
   imports: [ConfigModule],
@@ -22,15 +23,17 @@ import { TokenValidationService } from '../auth/services/token-validation.servic
     ApiKeyGuard,
     Reflector,
     RolesGuard,
-    ExternalJwtGuard,
-    TokenValidationService,
+    AccessTokenAuthGuard,
+    IpRateLimitGuard,
+    AccessTokenValidationService,
   ],
   exports: [
     ApiKeyGuard,
     Reflector,
     RolesGuard,
-    ExternalJwtGuard,
-    TokenValidationService,
+    AccessTokenAuthGuard,
+    IpRateLimitGuard,
+    AccessTokenValidationService,
   ],
 })
 export class AuthModule {}
