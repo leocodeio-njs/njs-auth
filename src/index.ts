@@ -5,7 +5,7 @@ import { RolesGuard } from './auth/guards/auth/roles.guard';
 import { Roles } from './auth/decorator/auth/roles.decorator';
 import { PassAccessTokenCheck } from './auth/decorator/jwt/passAccessTokenCheck';
 import { IpRateLimitGuard } from './auth/guards/rate-limit/rate-limit.guard';
-import { AccessTokenAuthGuard } from './auth/guards/jwt/acess-token-auth.guard';
+import { JwtAuthGuard } from './auth/guards/jwt/acess-token-auth.strategy.guard';
 
 export {
   // module
@@ -14,7 +14,7 @@ export {
   // guards
   ApiKeyGuard,
   RolesGuard,
-  AccessTokenAuthGuard,
+  JwtAuthGuard,
 
   // decorators
   Public,

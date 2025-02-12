@@ -6,7 +6,7 @@ import { Reflector } from '@nestjs/core';
 // Guards
 import { ApiKeyGuard } from '../auth/guards/api/api-key.guard';
 import { RolesGuard } from '../auth/guards/auth/roles.guard';
-import { AccessTokenAuthGuard } from '../auth/guards/jwt/acess-token-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt/acess-token-auth.strategy.guard';
 import { IpRateLimitGuard } from '../auth/guards/rate-limit/rate-limit.guard';
 
 //decorators
@@ -15,7 +15,11 @@ import { Roles } from '../auth/decorator/auth/roles.decorator';
 import { Public } from '../auth/decorator/api/public.decorator';
 
 // services
-import { AccessTokenValidationService } from '../auth/services/access-token-validation.service';
+import { AuthService } from './auth.service';
+import { UserRepository } from '../modules/user/domain/ports/user.repository';
+import { OTPRepository } from '../modules/otp/domain/ports/otp.repository';
+import { SessionRepository } from '../modules/session/domain/ports/session.repository';
+import { SmsService } from '../auth/services/sms.service';
 
 @Module({
   imports: [ConfigModule],
@@ -23,17 +27,16 @@ import { AccessTokenValidationService } from '../auth/services/access-token-vali
     ApiKeyGuard,
     Reflector,
     RolesGuard,
-    AccessTokenAuthGuard,
     IpRateLimitGuard,
-    AccessTokenValidationService,
+    AuthService,
+
   ],
   exports: [
     ApiKeyGuard,
     Reflector,
     RolesGuard,
-    AccessTokenAuthGuard,
     IpRateLimitGuard,
-    AccessTokenValidationService,
+    AuthService,
   ],
 })
 export class AuthModule {}
