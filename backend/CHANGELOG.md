@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/leocodeio-njs/njs-auth/compare/v1.0.0...v1.0.1) (2025-04-15)
+
+
+### Performance Improvements
+
+* **test:** test push ([f04e3b7](https://github.com/leocodeio-njs/njs-auth/commit/f04e3b7cdccfb86bf420a039a5b6501e41dde27b))
+
 # 1.0.0 (2025-04-15)
 
 
