@@ -8,9 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,8 +23,6 @@ jobs:
       
       - name: Install dependencies
         run: npm install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Build package
         run: npm run build
@@ -66,8 +61,6 @@ jobs:
       
       - name: Install dependencies
         run: npm install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Configure Git user
         run: |
