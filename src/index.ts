@@ -1,24 +1,21 @@
-import { AuthModule } from './modules/auth.module';
-import { Public } from './auth/decorator/api/public.decorator';
+import { AuthModule } from './auth/auth.module';
+// guards
 import { ApiKeyGuard } from './auth/guards/api/api-key.guard';
-import { RolesGuard } from './auth/guards/auth/roles.guard';
-import { Roles } from './auth/decorator/auth/roles.decorator';
-import { PassAccessTokenCheck } from './auth/decorator/jwt/passAccessTokenCheck';
+import { AccessTokenGuard } from './auth/guards/auth/access-token.guard';
 import { IpRateLimitGuard } from './auth/guards/rate-limit/rate-limit.guard';
-import { JwtAuthGuard } from './auth/guards/jwt/acess-token-auth.strategy.guard';
+// decorators
+import { PassAccessTokenCheck } from './auth/decorator/auth/passAccessTokenCheck';
+import { NoRateLimit } from './auth/decorator/rate-limit/rate-limit.decorator';
+import { Public } from './auth/decorator/api/public.decorator';
 
 export {
-  // module
   AuthModule,
-
   // guards
   ApiKeyGuard,
-  RolesGuard,
-  JwtAuthGuard,
-
+  AccessTokenGuard,
+  IpRateLimitGuard,
   // decorators
   Public,
   PassAccessTokenCheck,
-  Roles,
-  IpRateLimitGuard,
+  NoRateLimit,
 };

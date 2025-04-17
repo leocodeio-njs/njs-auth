@@ -7,14 +7,18 @@ import {
 import { Reflector } from '@nestjs/core';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 import { RATE_LIMIT_KEY } from '../../decorator/rate-limit/rate-limit.decorator';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class IpRateLimitGuard implements CanActivate {
-  private readonly reflector: Reflector;
+  constructor(
+    private readonly reflector: Reflector,
+    private configService: ConfigService,
+  ) {}
   private limiter = new RateLimiterMemory({
-    points: 100, // Max requests
-    duration: 60 * 60, // Per hour
-    blockDuration: 5 * 60, // 5min block if exceeded
+    points: this.configService.get<number>('RATE_LIMIT_POINTS') || 100, // Max requests
+    duration: this.configService.get<number>('RATE_LIMIT_DURATION') || 60 * 60, // Per hour
+    blockDuration: this.configService.get<number>('RATE_LIMIT_BLOCK_DURATION') || 5 * 60, // 5min block if exceeded
   });
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
