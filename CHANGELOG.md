@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/leocodeio-njs/njs-auth/compare/v1.1.0...v1.1.1) (2025-05-04)
+
+
+### Bug Fixes
+
+* **updated deps:** updated deps ([0da24c1](https://github.com/leocodeio-njs/njs-auth/commit/0da24c169fa6f2b44b119b5af2fab10197896cba))
+
 # [1.1.0](https://github.com/leocodeio-njs/njs-auth/compare/v1.0.1...v1.1.0) (2025-04-20)
 
 
