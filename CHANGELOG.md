@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/leocodeio-njs/njs-auth/compare/v1.1.1...v1.1.2) (2025-05-04)
+
+
+### Bug Fixes
+
+* **build cmd:** build cmd ([3ee2e0c](https://github.com/leocodeio-njs/njs-auth/commit/3ee2e0c9d63c0bc5d7a2db5f181b2649808e75ba))
+
 ## [1.1.1](https://github.com/leocodeio-njs/njs-auth/compare/v1.1.0...v1.1.1) (2025-05-04)
 
 
